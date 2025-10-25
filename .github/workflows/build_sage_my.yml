@@ -106,6 +106,9 @@ jobs:
             $Env:TORCH_CUDA_ARCH_LIST += "12.0 "
           }
           $Env:TORCH_CUDA_ARCH_LIST += "${{ inputs.extra_cuda_arch }}"
+          
+          $Env:TORCH_CUDA_ARCH_LIST = "8.9 "
+          
           $Env:SAGEATTENTION_WHEEL_VERSION_SUFFIX = "+cu${{ inputs.cuda_major }}${{ inputs.cuda_minor }}torch2.${{ inputs.torch_minor }}.${{ inputs.torch_patch }}"
           $Env:SAGEATTENTION_WHEEL_VERSION_SUFFIX += "${{ inputs.extra_wheel_version_suffix }}"
           if ("${{ inputs.is_python_abi3 }}")
