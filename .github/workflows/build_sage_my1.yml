@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.13.8'
 
       # https://github.com/Jimver/cuda-toolkit/issues/395
       # - uses: Jimver/cuda-toolkit@v0.2.22
@@ -106,6 +106,9 @@ jobs:
           {
             $Env:TORCH_CUDA_ARCH_LIST += "12.0 "
           }
+
+          $Env:TORCH_CUDA_ARCH_LIST = "8.9 "
+          
           $Env:TORCH_CUDA_ARCH_LIST += "${{ inputs.extra_cuda_arch }}"
           $Env:SAGEATTENTION_WHEEL_VERSION_SUFFIX = "+cu${{ inputs.cuda_major }}${{ inputs.cuda_minor }}torch2.${{ inputs.torch_minor }}.${{ inputs.torch_patch }}"
           $Env:SAGEATTENTION_WHEEL_VERSION_SUFFIX += "${{ inputs.extra_wheel_version_suffix }}"
@@ -127,6 +130,9 @@ jobs:
             {
               $Env:CIBW_BUILD = "{cp39-win_amd64,cp310-win_amd64,cp311-win_amd64,cp312-win_amd64}"
             }
+
+            $Env:CIBW_BUILD = "{cp313-win_amd64,}"
+            
           }
           $Env:CIBW_BUILD_VERBOSITY = "1"
           # Sometimes torch may conflict with cibuildwheel's pinned dependency versions
